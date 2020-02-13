@@ -46,19 +46,11 @@
     {#	  <form class="form" style="visibility: hidden;">#}
     {#	    #}
     {#	  </form>#}
-    {% if data.pair_unique_id %}
-        <div class="form font" style="visibility: hidden;">
-            <h1>'Hurrey' !</h1>
-            <h3>Name: {{ data.name }}</h3>
-            <h3>Native Place: {{ data.native_place }}</h3>
-            <h3>Dept/Sem: {{ data.remarks }}</h3>
-            <h3>Interests: {{ inter }}</h3>
-        </div>
-    {% else %}
-        <div class="form " style="visibility: hidden;">
+
+        <div class="form font"  style="visibility: hidden;">
             <h1>Better Luck Next Time</h1>
         </div>
-    {% endif %}
+
 
     <div  style="margin-right:0px;margin-left:0px;padding-top:24px;margin-top:1em">
         <div >

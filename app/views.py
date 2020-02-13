@@ -9,6 +9,8 @@ import string
 
 def home(request):
     if request.method == "GET":
+        # e = RegisteredMembers.objects.filter(gender=True).count()
+        # print(e)
         return render(request, 'index.html')
     else:
         profile = request.POST['profile']
@@ -122,6 +124,7 @@ def analyzer():
                 break
     print(pair_list)
     for i in pair_list:
+        print((i[0].name, i[1].name))
         i[0].pair_unique_id = i[1].unique_id
         i[1].pair_unique_id = i[0].unique_id
         i[0].save()
@@ -139,18 +142,32 @@ def getProfile(request, foo):
     return render(request, 'profile.html', {'data': data})
 
 
-def scratchcard(request,foo):
-    event = RegisteredMembers.objects.get(phone_no=foo)
-    data = RegisteredMembers.objects.get(unique_id=event.pair_unique_id)
-    inter = data.interests
-    list_inter = inter.split('$$')
-    inter = ""
-    for i in list_inter[1:]:
-        inter += i + ", "
-    inter = inter[:-2]
-    return render(request, 'scratchcard.html', {'data': data, 'inter': inter})
+def scratchcard(request, foo):
+    try:
+        # print(request.POST['sc'])
+        event = RegisteredMembers.objects.get(phone_no=foo)
+        # print(event)
+        try:
+            data = RegisteredMembers.objects.get(unique_id=event.pair_unique_id)
+
+            inter = data.interests
+            list_inter = inter.split('$$')
+            inter = ""
+
+            for i in list_inter[1:]:
+                inter += i + ", "
+
+            inter = inter[:-2]
+            return render(request, 'scratchcard1.html', {'data': data, 'inter': inter})
+        except:
+            return render(request, "nopair.html")
+    except:
+        return render(request, "nopair.html")
+
 
 def pairProfile(request, foo):
     data = RegisteredMembers.objects.get(phone_no=foo)
     return render(request, 'pair_profile.html', {'data': data})
+
+
 
